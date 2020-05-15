@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--读取配置文件-->
+    <context:property-placeholder location="classpath:jdbc-mysql.properties"></context:property-placeholder>
+
+    <!--配置数据源-->
+    <bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="${jdbc.mysql.url}"></property>
+        <property name="username" value="${jdbc.mysql.username}"></property>
+        <property name="password" value="${jdbc.mysql.password}"></property>
+    </bean>
+
+    <!--创建sqlsession工厂-->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--设置数据源-->
+        <property name="dataSource" ref="datasource"></property>
+        <!--设置别名-->
+        <property name="typeAliasesPackage" value="com.entity"></property>
+        <!--设置mapper映射文件-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+        <!--其他mybatis配置-->
+        <property name="configuration">
+            <bean class="org.apache.ibatis.session.Configuration">
+                <!--驼峰命名配置-->
+                <property name="mapUnderscoreToCamelCase" value="true"></property>
+            </bean>
+        </property>
+    </bean>
+
+    <!--创建接口映射对象-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--指定mapper接口包路径-->
+        <property name="basePackage" value="com.dao"></property>
+    </bean>
+
+</beans>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.DeptDao">
+    
+    <sql id="deptDefault">
+        d.id,d.name,d.remark,d.status
+    </sql>
+
+    <sql id="empDefault">
+        e.id,e.dept_id,e.job_id,e.name,e.cardId,e.address,e.phone,e.email,e.sex,e.education,e.createDate,e.status
+    </sql>
+    
+    <resultMap id="deptEmp" type="dept">
+    <id property="id" column="did"></id>
+    <result property="name" column="dname"></result>
+    <result property="remark" column="dremark"></result>
+    <result property="status" column="dstatus"></result>
+    <collection property="emps" javaType="ArrayList" ofType="emp" autoMapping="true"></collection>
+</resultMap>
+
+    <select id="selectAll" resultType="dept">
+        select <include refid="deptDefault"></include> from dept d where d.status=1
+    </select>
+
+    <select id="selectDeptEmp" resultMap="deptEmp">
+        select <include refid="empDefault"></include>,d.id as did,d.name as dname,d.remark as dremark,d.status as dstatus from dept d left join emp e on d.id = e.dept_id where d.status=1
+    </select>
+
+    <select id="selectByPage" resultType="dept">
+        select <include refid="deptDefault"></include> from dept d where d.status=1
+    </select>
+
+    <select id="selectOne" resultType="dept">
+        select <include refid="deptDefault"></include> from dept d where d.status=1 and d.id=#{id}
+    </select>
+
+    <select id="selectByParam" resultType="dept">
+        select <include refid="deptDefault"></include> from dept d where d.status=1
+        <if test="name != null and name != ''">
+            and d.name like concat('%',#{name},'%')
+        </if>
+    </select>
+
+    <insert id="insert">
+        insert into dept(name,remark) values(#{name}, #{remark});
+    </insert>
+
+    <update id="update">
+        update dept set
+        <trim suffixOverrides=",">
+            <if test="name != null and name != ''">
+                name=#{name},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark=#{remark},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        delete from dept where id=#{id}
+    </delete>
+
+</mapper>

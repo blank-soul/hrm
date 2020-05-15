@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.JobDao">
+
+    <sql id="jobDefault">
+        j.id,j.name,j.remark,j.status
+    </sql>
+
+    <sql id="empDefault">
+        e.id,e.dept_id,e.job_id,e.name,e.cardId,e.address,e.phone,e.email,e.sex,e.education,e.createDate,e.status
+    </sql>
+
+    <resultMap id="jobEmp" type="job">
+        <id property="id" column="jid"></id>
+        <result property="name" column="jname"></result>
+        <result property="remark" column="jremark"></result>
+        <result property="status" column="jstatus"></result>
+        <collection property="emps" javaType="ArrayList" ofType="emp" autoMapping="true"></collection>
+    </resultMap>
+
+    <select id="selectAll" resultType="job">
+        select <include refid="jobDefault"></include> from job j where j.status=1
+    </select>
+
+    <select id="selectJobEmp" resultMap="jobEmp">
+        select <include refid="empDefault"></include>,j.id as jid,j.name as jname,j.remark as jremark,j.status as jstatus from job j left join emp e on j.id = e.job_id where j.status=1
+    </select>
+
+    <select id="selectByPage" resultType="job">
+        select <include refid="jobDefault"></include> from job j where j.status=1 limit #{start},#{pageSize}
+    </select>
+
+    <select id="selectOne" resultType="job">
+        select <include refid="jobDefault"></include> from job j where j.status=1 and j.id=#{id}
+    </select>
+
+    <select id="selectByParam" resultType="job">
+        select <include refid="jobDefault"></include> from job j where j.status=1
+        <if test="name != null and name != ''">
+            and j.name like concat('%',#{name},'%')
+        </if>
+    </select>
+
+    <insert id="insert">
+        insert into job(name,remark) values(#{name}, #{remark});
+    </insert>
+
+    <update id="update">
+        update job set
+        <trim suffixOverrides=",">
+            <if test="name != null and name != ''">
+                name=#{name},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark=#{remark},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        delete from job where id=#{id}
+    </delete>
+
+</mapper>

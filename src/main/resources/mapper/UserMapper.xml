@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.UserDao">
+    
+    <sql id="userDefault">
+        u.id,u.username,u.loginname,u.password,u.status,u.createDate
+    </sql>
+
+    <select id="selectAll" resultType="user">
+        select <include refid="userDefault"></include> from user u where u.status in (1,2)
+    </select>
+
+    <select id="selectByPage" resultType="user">
+        select <include refid="userDefault"></include> from user u where u.status in (1,2) limit #{start},#{pageSize}
+    </select>
+
+    <select id="selectOne" resultType="user">
+        select <include refid="userDefault"></include> from user u where u.status in (1,2) and u.id=#{id}
+    </select>
+
+    <select id="selectByParam" resultType="user">
+        select <include refid="userDefault"></include> from user u
+        <trim prefix="where" prefixOverrides="and">
+            <if test="username != null and username != ''">
+                and u.username like concat('%',#{username},'%')
+            </if>
+            <if test="status != null and status != 0">
+                and u.status=#{status}
+            </if>
+        </trim>
+    </select>
+    
+    <insert id="insert">
+        insert into user(username,loginname,password,createDate) values(#{username},#{loginname},#{password},#{createDate})
+    </insert>
+
+    <update id="update">
+        update user set
+        <trim suffixOverrides=",">
+            <if test="username != null and username != ''">
+                username=#{username},
+            </if>
+            <if test="loginname != null and loginname != ''">
+                loginname=#{loginname},
+            </if>
+            <if test="password != null and password != ''">
+                password=#{password},
+            </if>
+            <if test="createDate != null and createDate != ''">
+                createDate=#{createDate},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        delete from user where id=#{id}
+    </delete>
+
+</mapper>

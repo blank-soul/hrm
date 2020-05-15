@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.EmpDao">
+
+    <sql id="defaultSelect">
+        select e.id,e.dept_id,e.job_id,e.name,e.cardId,e.address,e.phone,e.email,e.sex,e.education,e.createDate,e.status,
+        d.id as did,d.name as dname,d.remark as dremark,d.status as dstatus,
+        j.id as jid,j.name as jname,j.remark as jremark,j.status as jstatus
+        from emp e inner join dept d inner join job j
+        on e.job_id = j.id and e.dept_id = d.id
+        where e.status=1
+    </sql>
+    
+    <resultMap id="empMap" type="emp" autoMapping="true">
+        <association property="dept" javaType="dept">
+            <id property="id" column="did"></id>
+            <result property="name" column="dname"></result>
+            <result property="remark" column="dremark"></result>
+            <result property="status" column="dstatu"></result>
+        </association>
+        <association property="job" javaType="job">
+            <id property="id" column="jid"></id>
+            <result property="name" column="jname"></result>
+            <result property="remark" column="jremark"></result>
+            <result property="status" column="jstatus"></result>
+        </association>
+    </resultMap>
+    
+    <select id="selectAll" resultMap="empMap">
+        <include refid="defaultSelect"></include>
+    </select>
+
+    <select id="selectByPage" resultMap="empMap">
+        <include refid="defaultSelect"></include> limit #{start},#{pageSize}
+    </select>
+
+    <select id="selectOne" resultMap="empMap">
+        <include refid="defaultSelect"></include> and e.id=#{id}
+    </select>
+
+    <select id="selectByParam" resultMap="empMap">
+        <include refid="defaultSelect"></include>
+        <trim>
+            <if test="jobId != null and jobId != 0">
+                and e.job_id=#{jobId}
+            </if>
+            <if test="deptId != null and deptId != 0">
+                and e.dept_id=#{deptId}
+            </if>
+            <if test="name != null and name != ''">
+                and e.name like concat('%',#{name},'%')
+            </if>
+            <if test="cardId != null and cardId != ''">
+                and e.cardId like concat('%',#{cardId},'%')
+            </if>
+            <if test="phone != null and phone != ''">
+                and e.phone like concat('%',#{phone},'%')
+            </if>
+            <if test="sex != null and sex != ''">
+                and e.sex=#{sex}
+            </if>
+        </trim>
+    </select>
+
+    <insert id="insert">
+        insert into emp(dept_id,job_id,name,cardId,address,phone,email,sex,education,createDate)
+        values(#{deptId}, #{jobId}, #{name}, #{cardId}, #{address}, #{phone}, #{email}, #{sex}, #{education}, #{createDate})
+    </insert>
+
+    <insert id="batchInsert">
+        insert into emp(dept_id,job_id,name,cardId,address,phone,email,sex,education,createDate) values
+        <foreach collection="list" item="emp" separator=",">
+            (#{emp.deptId}, #{emp.jobId}, #{emp.name}, #{emp.cardId}, #{emp.address}, #{emp.phone}, #{emp.email}, #{emp.sex}, #{emp.education}, #{emp.createDate})
+        </foreach>
+    </insert>
+
+    <update id="update">
+        update emp set
+        <trim suffixOverrides=",">
+            <if test="deptId != null">
+                dept_id=#{deptId},
+            </if>
+            <if test="jobId != null">
+                job_id=#{jobId},
+            </if>
+            <if test="name != null and name != ''">
+                name=#{name},
+            </if>
+            <if test="cardId != null and cardId != ''">
+                cardId=#{cardId},
+            </if>
+            <if test="address != null and address != ''">
+                address=#{address},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone=#{phone},
+            </if>
+            <if test="email != null and email != ''">
+                email=#{email},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex=#{sex},
+            </if>
+            <if test="education != null and education != ''">
+                education=#{education},
+            </if>
+            <if test="createDate != null and createDate != ''">
+                createDate=#{createDate},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        delete from emp where id=#{id}
+    </delete>
+
+</mapper>
