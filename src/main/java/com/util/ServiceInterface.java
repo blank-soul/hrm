@@ -15,20 +15,20 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = "classpath:spring/applicationContext.xml")
 public class ServiceInterface {
     @Autowired
-    DeptService deptService;
+    public DeptService deptService;
 
     @Autowired
-    DocumentService documentService;
+    public DocumentService documentService;
 
     @Autowired
-    EmpService empService;
+    public EmpService empService;
 
     @Autowired
-    JobService jobService;
+    public JobService jobService;
 
     @Autowired
-    NoticeService noticeService;
+    public NoticeService noticeService;
 
     @Autowired
-    UserService userService;
+    public UserService userService;
 }

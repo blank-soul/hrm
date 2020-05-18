@@ -37,6 +37,14 @@ public class UserServiceImpl extends DaoInterface implements UserService {
     }
 
     @Override
+    public Boolean login(User user) {
+        if(0 != userDao.selectByParam(user).size()){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public int insert(User user) {
         return userDao.insert(user);
     }

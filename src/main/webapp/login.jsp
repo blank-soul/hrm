@@ -20,7 +20,7 @@
         }
 
         .card {
-            background-color: rgb(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.5);
             width: 400px;
             height: 400px;
         }
@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="row mt-3 pb-1 h-75">
                     <div class="col text-center">
-                        <h4>驾校信息管理平台</h4>
+                        <h4>人事管理系统</h4>
                     </div>
                 </div>
                 <div class="row no-gutters justify-content-center">
@@ -80,9 +80,9 @@
             alert("密码不可为空！");
         } else{
             $.post("loginResult", "username="+username+"&pwd="+pwd, function (res) {
-                if(res == "true"){
+                if(0 != res.length){
                     alert("登录成功！");
-                    location.href='loginInit';
+                    location.href='/loginInit?id=' + res[0].id;
                 } else {
                     alert("登录失败！");
                 }

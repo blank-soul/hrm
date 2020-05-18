@@ -18,6 +18,9 @@ public interface UserService {
     // 不定项查询
     List<User> selectByParam(User user);
 
+    // 系统登录
+    Boolean login(User user);
+
     // 新增
     int insert(User user);
 
