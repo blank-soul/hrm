@@ -8,8 +8,6 @@
     <!--表示支持Spring的注解-->
     <comtext:annotation-config />
     <!--注解扫描-->
-    <content:component-scan base-package="com.*"></content:component-scan>
-
-
+    <content:component-scan base-package="com.service"></content:component-scan>
 
 </beans>

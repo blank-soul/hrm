@@ -4,6 +4,7 @@ import com.entity.Dept;
 import com.github.pagehelper.PageHelper;
 import com.service.DeptService;
 import com.util.DaoInterface;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * Create by HP on 2020/5/11
  * 游魂
  */
+@Service
 public class DeptServiceImpl extends DaoInterface implements DeptService {
     @Override
     public List<Dept> selectAll() {

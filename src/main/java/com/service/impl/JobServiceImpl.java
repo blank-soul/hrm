@@ -3,6 +3,7 @@ package com.service.impl;
 import com.entity.Job;
 import com.service.JobService;
 import com.util.DaoInterface;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * Create by HP on 2020/5/12
  * 游魂
  */
+@Service
 public class JobServiceImpl extends DaoInterface implements JobService {
     @Override
     public List<Job> selectAll() {

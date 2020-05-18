@@ -5,6 +5,7 @@ import com.dao.NoticeDao;
 import com.service.NoticeService;
 import com.util.DaoInterface;
 import com.util.MyBatisUtil;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * Create by HP on 2020/5/13
  * 游魂
  */
+@Service
 public class NoticeServiceImpl extends DaoInterface implements NoticeService {
     @Override
     public List<Notice> selectAll() {

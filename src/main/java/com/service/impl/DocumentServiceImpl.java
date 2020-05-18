@@ -3,6 +3,7 @@ package com.service.impl;
 import com.entity.Document;
 import com.service.DocumentService;
 import com.util.DaoInterface;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * Create by HP on 2020/5/13
  * 游魂
  */
+@Service
 public class DocumentServiceImpl extends DaoInterface implements DocumentService {
     @Override
     public List<Document> selectAll() {

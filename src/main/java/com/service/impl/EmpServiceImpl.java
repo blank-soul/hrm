@@ -3,6 +3,7 @@ package com.service.impl;
 import com.entity.Emp;
 import com.service.EmpService;
 import com.util.DaoInterface;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * Create by HP on 2020/5/11
  * 游魂
  */
+@Service
 public class EmpServiceImpl extends DaoInterface implements EmpService {
     @Override
     public List<Emp> selectAll() {
