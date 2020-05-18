@@ -1,9 +1,8 @@
 package com.service.impl;
 
 import com.entity.Emp;
-import com.dao.EmpDao;
 import com.service.EmpService;
-import com.util.MyBatisUtil;
+import com.util.DaoInterface;
 
 import java.util.List;
 
@@ -12,9 +11,7 @@ import java.util.List;
  * Create by HP on 2020/5/11
  * 游魂
  */
-public class EmpServiceImpl implements EmpService {
-    EmpDao empDao = MyBatisUtil.getMapper(EmpDao.class);
-
+public class EmpServiceImpl extends DaoInterface implements EmpService {
     @Override
     public List<Emp> selectAll() {
         return empDao.selectAll();

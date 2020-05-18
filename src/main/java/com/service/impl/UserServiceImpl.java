@@ -3,6 +3,7 @@ package com.service.impl;
 import com.entity.User;
 import com.dao.UserDao;
 import com.service.UserService;
+import com.util.DaoInterface;
 import com.util.MyBatisUtil;
 
 import java.util.List;
@@ -11,8 +12,7 @@ import java.util.List;
  * Create by HP on 2020/5/13
  * 游魂
  */
-public class UserServiceImpl implements UserService {
-    UserDao userDao = MyBatisUtil.getMapper(UserDao.class);
+public class UserServiceImpl extends DaoInterface implements UserService {
 
     @Override
     public List<User> selectAll() {

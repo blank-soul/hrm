@@ -1,9 +1,8 @@
 package com.service.impl;
 
 import com.entity.Job;
-import com.dao.JobDao;
 import com.service.JobService;
-import com.util.MyBatisUtil;
+import com.util.DaoInterface;
 
 import java.util.List;
 
@@ -11,9 +10,7 @@ import java.util.List;
  * Create by HP on 2020/5/12
  * 游魂
  */
-public class JobServiceImpl implements JobService {
-    JobDao jobDao = MyBatisUtil.getMapper(JobDao.class);
-
+public class JobServiceImpl extends DaoInterface implements JobService {
     @Override
     public List<Job> selectAll() {
         return jobDao.selectAll();

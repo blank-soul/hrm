@@ -20,7 +20,7 @@
         }
 
         .card {
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: rgb(255, 255, 255, 0.5);
             width: 400px;
             height: 400px;
         }
@@ -28,12 +28,12 @@
 </head>
 <body scroll="no">
 <div class="container">
-    <div class="row">
+    <div class="row" id="row">
         <div class="col d-flex justify-content-center align-items-center">
             <div class="card">
                 <div class="row mt-3 pb-1 h-75">
                     <div class="col text-center">
-                        <h4>人事管理系统</h4>
+                        <h4>驾校信息管理平台</h4>
                     </div>
                 </div>
                 <div class="row no-gutters justify-content-center">
@@ -41,18 +41,18 @@
                         <div class="form-row" style="">
                             <div class="col">
                                 <label><small>登录账号</small></label>
-                                <input type="text" class="form-control" placeholder="登录账号" required />
+                                <input id="username" type="text" class="form-control" placeholder="登录账号" required />
                             </div>
                         </div>
                         <div class="form-row mt-4">
                             <div class="col">
                                 <label><small>登录密码</small></label>
-                                <input type="password" class="form-control" placeholder="登录密码" required />
+                                <input id="pwd" type="password" class="form-control" placeholder="登录密码" required />
                             </div>
                         </div>
                         <div class="form-row mt-4">
                             <div class="col">
-                                <button type="submit" class="btn btn-primary w-100">登录</button>
+                                <button id="submit" type="button" class="btn btn-primary w-100">登录</button>
                             </div>
                         </div>
                     </form>
@@ -70,27 +70,27 @@
         $(".row").css("height", nav_height + "px");
     });
 </script>
-<script>
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
+<script type="text/javascript">
+    $("#submit").click(function() {
+        var username = $("#username").val();
+        var pwd = $("#pwd").val();
+        if(username == "" || username == null || username == undefined){
+            alert("账号不可为空！");
+        } else if(pwd == "" || pwd == null || pwd == undefined){
+            alert("密码不可为空！");
+        } else{
+            $.post("loginResult", "username="+username+"&pwd="+pwd, function (res) {
+                if(res == "true"){
+                    alert("登录成功！");
+                    location.href='loginInit';
+                } else {
+                    alert("登录失败！");
+                }
             });
-        }, false);
-    })();
-
-    $("#needs-validation").submit(function() {
-        return false;
+        }
     });
 </script>
 </body>
 </html>
+
 

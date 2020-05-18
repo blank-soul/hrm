@@ -1,9 +1,8 @@
 package com.service.impl;
 
 import com.entity.Document;
-import com.dao.DocumentDao;
 import com.service.DocumentService;
-import com.util.MyBatisUtil;
+import com.util.DaoInterface;
 
 import java.util.List;
 
@@ -11,9 +10,7 @@ import java.util.List;
  * Create by HP on 2020/5/13
  * 游魂
  */
-public class DocumentServiceImpl implements DocumentService {
-    DocumentDao documentDao = MyBatisUtil.getMapper(Document.class);
-
+public class DocumentServiceImpl extends DaoInterface implements DocumentService {
     @Override
     public List<Document> selectAll() {
         return documentDao.selectAll();

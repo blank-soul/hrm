@@ -1,10 +1,9 @@
 package com.service.impl;
 
 import com.entity.Dept;
-import com.dao.DeptDao;
 import com.github.pagehelper.PageHelper;
 import com.service.DeptService;
-import com.util.MyBatisUtil;
+import com.util.DaoInterface;
 
 import java.util.List;
 
@@ -12,9 +11,7 @@ import java.util.List;
  * Create by HP on 2020/5/11
  * 游魂
  */
-public class DeptServiceImpl implements DeptService {
-    DeptDao deptDao = MyBatisUtil.getMapper(DeptDao.class);
-
+public class DeptServiceImpl extends DaoInterface implements DeptService {
     @Override
     public List<Dept> selectAll() {
         return deptDao.selectAll();

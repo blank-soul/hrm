@@ -3,6 +3,7 @@ package com.service.impl;
 import com.entity.Notice;
 import com.dao.NoticeDao;
 import com.service.NoticeService;
+import com.util.DaoInterface;
 import com.util.MyBatisUtil;
 
 import java.util.List;
@@ -11,9 +12,7 @@ import java.util.List;
  * Create by HP on 2020/5/13
  * 游魂
  */
-public class NoticeServiceImpl implements NoticeService {
-    NoticeDao noticeDao = MyBatisUtil.getMapper(Notice.class);
-
+public class NoticeServiceImpl extends DaoInterface implements NoticeService {
     @Override
     public List<Notice> selectAll() {
         return noticeDao.selectAll();
