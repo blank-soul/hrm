@@ -31,4 +31,7 @@ public class DaoInterface {
 
     @Autowired
     public UserDao userDao;
+
+    @Autowired
+    public UserMenuDao userMenuDao;
 }

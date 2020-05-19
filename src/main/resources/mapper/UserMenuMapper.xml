@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.UserMenuDao">
+    
+    <select id="selectById" resultType="menu">
+        select m.id,m.name,m.location,m.perentId from user_menu um inner join menu m on um.mid=m.id
+        where um.uid=#{id}
+        <trim>
+            <choose>
+                <when test="perentId != null and perentId != 0">
+                    and m.perentId=#{perentId}
+                </when>
+                <otherwise>
+                    and m.perentId is null
+                </otherwise>
+            </choose>
+        </trim>
+    </select>
+
+</mapper>

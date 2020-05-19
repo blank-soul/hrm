@@ -31,4 +31,7 @@ public class ServiceInterface {
 
     @Autowired
     public UserService userService;
+
+    @Autowired
+    public UserMenuService userMenuService;
 }
