@@ -12,9 +12,6 @@ public interface JobDao {
     // 查询所有职位下的所有员工信息
     List<Job> selectJobEmp();
 
-    // 分页查询
-    List<Job> selectByPage(@Param("start") int start, @Param("pageSize") int pageSize);
-
     // 根据id查询
     List<Job> selectOne(int id);
 

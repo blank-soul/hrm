@@ -2,6 +2,7 @@ package com.service.impl;
 
 import com.entity.User;
 import com.dao.UserDao;
+import com.github.pagehelper.PageHelper;
 import com.service.UserService;
 import com.util.DaoInterface;
 import com.util.MyBatisUtil;
@@ -17,13 +18,9 @@ import java.util.List;
 public class UserServiceImpl extends DaoInterface implements UserService {
 
     @Override
-    public List<User> selectAll() {
+    public List<User> selectAll(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return userDao.selectAll();
-    }
-
-    @Override
-    public List<User> selectByPage(int start, int pageSize) {
-        return userDao.selectByPage(start, pageSize);
     }
 
     @Override
@@ -57,18 +54,5 @@ public class UserServiceImpl extends DaoInterface implements UserService {
     @Override
     public int delete(int id) {
         return userDao.delete(id);
-    }
-
-    public static void main(String[] args) {
-        UserService userService = new UserServiceImpl();
-        User obj = new User();
-        obj.setUsername("r");
-        obj.setStatus(2);
-        obj.setId(6);
-//        userService.selectByParam(obj).forEach(user -> {
-//            System.out.println(user);
-//        });
-        int num = userService.delete(6);
-        System.out.println(num);
     }
 }

@@ -1,6 +1,7 @@
 package com.service.impl;
 
 import com.entity.Emp;
+import com.github.pagehelper.PageHelper;
 import com.service.EmpService;
 import com.util.DaoInterface;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,9 @@ import java.util.List;
 @Service
 public class EmpServiceImpl extends DaoInterface implements EmpService {
     @Override
-    public List<Emp> selectAll() {
+    public List<Emp> selectAll(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return empDao.selectAll();
-    }
-
-    @Override
-    public List<Emp> selectByPage(int start, int pageSize) {
-        return empDao.selectByPage(start, pageSize);
     }
 
     @Override
@@ -48,20 +45,4 @@ public class EmpServiceImpl extends DaoInterface implements EmpService {
     public int delete(int id) {
         return empDao.delete(id);
     }
-
-    public static void main(String[] args) {
-        EmpService empService = new EmpServiceImpl();
-        Emp obj = new Emp();
-//        obj.setDeptId(2);
-//        obj.setJobId(2);
-//        obj.setName("3");
-//        obj.setCardId("004");
-//        obj.setId(3);
-        empService.selectAll().forEach(emp -> {
-            System.out.println(emp);
-        });
-//        int num =  empService.delete(3);
-//        System.out.println(num);
-    }
-
 }

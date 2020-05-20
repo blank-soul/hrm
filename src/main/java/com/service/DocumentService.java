@@ -7,10 +7,7 @@ import java.util.List;
 
 public interface DocumentService {
     // 查询所有文档信息
-    List<Document> selectAll();
-
-    // 分页查询
-    List<Document> selectByPage(@Param("start") int start, @Param("pageSize") int pageSize);
+    List<Document> selectAll(int pageNum, int pageSize);
 
     // 根据id查询
     List<Document> selectOne(int id);

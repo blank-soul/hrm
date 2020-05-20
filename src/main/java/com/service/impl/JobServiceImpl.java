@@ -1,6 +1,7 @@
 package com.service.impl;
 
 import com.entity.Job;
+import com.github.pagehelper.PageHelper;
 import com.service.JobService;
 import com.util.DaoInterface;
 import org.springframework.stereotype.Service;
@@ -14,18 +15,14 @@ import java.util.List;
 @Service
 public class JobServiceImpl extends DaoInterface implements JobService {
     @Override
-    public List<Job> selectAll() {
+    public List<Job> selectAll(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return jobDao.selectAll();
     }
 
     @Override
     public List<Job> selectJobEmp() {
         return jobDao.selectJobEmp();
-    }
-
-    @Override
-    public List<Job> selectByPage(int start, int pageSize) {
-        return jobDao.selectByPage(start, pageSize);
     }
 
     @Override
@@ -53,17 +50,4 @@ public class JobServiceImpl extends DaoInterface implements JobService {
         return jobDao.delete(id);
     }
 
-    public static void main(String[] args) {
-        JobService jobService = new JobServiceImpl();
-        Job obj = new Job();
-        obj.setName("程序员");
-//        obj.setRemark("美女程序员");
-//        obj.setId(3);
-        jobService.selectAll().forEach(dept -> {
-            System.out.println(dept);
-        });
-
-//        int num = jobService.update(obj);
-//        System.out.println(num);
-    }
 }

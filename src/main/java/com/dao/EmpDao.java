@@ -9,9 +9,6 @@ public interface EmpDao {
     // 查询所有员工信息
     List<Emp> selectAll();
 
-    // 分页查询
-    List<Emp> selectByPage(@Param("start") int start, @Param("pageSize") int pageSize);
-
     // 根据id查询
     List<Emp> selectOne(int id);
 

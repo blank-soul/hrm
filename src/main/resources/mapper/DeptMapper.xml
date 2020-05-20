@@ -27,10 +27,6 @@
         select <include refid="empDefault"></include>,d.id as did,d.name as dname,d.remark as dremark,d.status as dstatus from dept d left join emp e on d.id = e.dept_id where d.status=1
     </select>
 
-    <select id="selectByPage" resultType="dept">
-        select <include refid="deptDefault"></include> from dept d where d.status=1
-    </select>
-
     <select id="selectOne" resultType="dept">
         select <include refid="deptDefault"></include> from dept d where d.status=1 and d.id=#{id}
     </select>

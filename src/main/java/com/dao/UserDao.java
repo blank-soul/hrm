@@ -9,9 +9,6 @@ public interface UserDao {
     // 查询所有用户信息
     List<User> selectAll();
 
-    // 分页查询
-    List<User> selectByPage(@Param("start") int start, @Param("pageSize") int pageSize);
-
     // 根据id查询
     List<User> selectOne(int id);
 

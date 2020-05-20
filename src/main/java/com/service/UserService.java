@@ -7,10 +7,7 @@ import java.util.List;
 
 public interface UserService {
     // 查询所有用户信息
-    List<User> selectAll();
-
-    // 分页查询
-    List<User> selectByPage(@Param("start") int start, @Param("pageSize") int pageSize);
+    List<User> selectAll(int pageNum, int pageSize);
 
     // 根据id查询
     List<User> selectOne(int id);

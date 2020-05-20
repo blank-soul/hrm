@@ -7,10 +7,7 @@ import java.util.List;
 
 public interface NoticeService {
     // 查询所有公告信息
-    List<Notice> selectAll();
-
-    // 分页查询
-    List<Notice> selectByPage(@Param("start") int start, @Param("pageSize") int pageSize);
+    List<Notice> selectAll(int pageNum, int pageSize);
 
     // 根据id查询
     List<Notice> selectOne(int id);

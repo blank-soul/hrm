@@ -1,6 +1,7 @@
 package com.service.impl;
 
 import com.entity.Document;
+import com.github.pagehelper.PageHelper;
 import com.service.DocumentService;
 import com.util.DaoInterface;
 import org.springframework.stereotype.Service;
@@ -14,13 +15,9 @@ import java.util.List;
 @Service
 public class DocumentServiceImpl extends DaoInterface implements DocumentService {
     @Override
-    public List<Document> selectAll() {
+    public List<Document> selectAll(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return documentDao.selectAll();
-    }
-
-    @Override
-    public List<Document> selectByPage(int start, int pageSize) {
-        return documentDao.selectByPage(start, pageSize);
     }
 
     @Override
@@ -48,7 +45,4 @@ public class DocumentServiceImpl extends DaoInterface implements DocumentService
         return documentDao.delete(id);
     }
 
-    public static void main(String[] args) {
-
-    }
 }

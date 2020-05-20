@@ -20,10 +20,6 @@
         <include refid="defaultSelect"></include>
     </select>
 
-    <select id="selectByPage" resultMap="noticeMap">
-        <include refid="defaultSelect"></include> limit #{start},#{pageSize}
-    </select>
-
     <select id="selectOne" resultMap="noticeMap">
         <include refid="defaultSelect"></include> and n.id=#{id}
     </select>

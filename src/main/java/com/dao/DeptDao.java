@@ -11,9 +11,6 @@ public interface DeptDao {
     // 查询所有部门下的所有员工信息
     List<Dept> selectDeptEmp();
 
-    // 分页查询
-    List<Dept> selectByPage();
-
     // 根据id查询
     List<Dept> selectOne(int id);
 

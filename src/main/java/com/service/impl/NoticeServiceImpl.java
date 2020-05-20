@@ -2,6 +2,7 @@ package com.service.impl;
 
 import com.entity.Notice;
 import com.dao.NoticeDao;
+import com.github.pagehelper.PageHelper;
 import com.service.NoticeService;
 import com.util.DaoInterface;
 import com.util.MyBatisUtil;
@@ -16,13 +17,9 @@ import java.util.List;
 @Service
 public class NoticeServiceImpl extends DaoInterface implements NoticeService {
     @Override
-    public List<Notice> selectAll() {
+    public List<Notice> selectAll(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return noticeDao.selectAll();
-    }
-
-    @Override
-    public List<Notice> selectByPage(int start, int pageSize) {
-        return noticeDao.selectByPage(start, pageSize);
     }
 
     @Override
@@ -50,7 +47,4 @@ public class NoticeServiceImpl extends DaoInterface implements NoticeService {
         return noticeDao.delete(id);
     }
 
-    public static void main(String[] args) {
-
-    }
 }

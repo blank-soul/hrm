@@ -27,10 +27,6 @@
         select <include refid="empDefault"></include>,j.id as jid,j.name as jname,j.remark as jremark,j.status as jstatus from job j left join emp e on j.id = e.job_id where j.status=1
     </select>
 
-    <select id="selectByPage" resultType="job">
-        select <include refid="jobDefault"></include> from job j where j.status=1 limit #{start},#{pageSize}
-    </select>
-
     <select id="selectOne" resultType="job">
         select <include refid="jobDefault"></include> from job j where j.status=1 and j.id=#{id}
     </select>

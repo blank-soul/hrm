@@ -15,19 +15,14 @@ import java.util.List;
 @Service
 public class DeptServiceImpl extends DaoInterface implements DeptService {
     @Override
-    public List<Dept> selectAll() {
+    public List<Dept> selectAll(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return deptDao.selectAll();
     }
 
     @Override
     public List<Dept> selectDeptEmp() {
         return deptDao.selectDeptEmp();
-    }
-
-    @Override
-    public List<Dept> selectByPage(int start, int pageSize) {
-        PageHelper.startPage(start, pageSize);
-        return deptDao.selectByPage();
     }
 
     @Override
@@ -55,18 +50,4 @@ public class DeptServiceImpl extends DaoInterface implements DeptService {
         return deptDao.delete(id);
     }
 
-    public static void main(String[] args) {
-        DeptService deptService = new DeptServiceImpl();
-//        Dept obj = new Dept();
-//        obj.setName("部");
-//        obj.setRemark("人事部");
-//        obj.setId(3);
-
-        deptService.selectByPage(2, 5).forEach(dept -> {
-            System.out.println(dept);
-        });
-
-//        int num = deptService.delete(3);
-//        System.out.println(num);
-    }
 }

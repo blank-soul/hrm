@@ -9,9 +9,6 @@ public interface DocumentDao {
     // 查询所有文档信息
     List<Document> selectAll();
 
-    // 分页查询
-    List<Document> selectByPage(@Param("start") int start, @Param("pageSize") int pageSize);
-
     // 根据id查询
     List<Document> selectOne(int id);
 

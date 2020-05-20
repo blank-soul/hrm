@@ -9,9 +9,6 @@ public interface NoticeDao {
     // 查询所有公告信息
     List<Notice> selectAll();
 
-    // 分页查询
-    List<Notice> selectByPage(@Param("start") int start, @Param("pageSize") int pageSize);
-
     // 根据id查询
     List<Notice> selectOne(int id);
 

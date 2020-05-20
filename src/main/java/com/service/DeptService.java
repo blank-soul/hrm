@@ -6,13 +6,10 @@ import java.util.List;
 
 public interface DeptService {
     // 查询所有部门信息
-    List<Dept> selectAll();
+    List<Dept> selectAll(int pageNum, int pageSize);
 
     // 查询所有部门下的所有员工信息
     List<Dept> selectDeptEmp();
-
-    // 分页查询
-    List<Dept> selectByPage(int start, int pageSize);
 
     // 根据id查询
     List<Dept> selectOne(int id);

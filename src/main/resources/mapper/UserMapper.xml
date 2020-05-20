@@ -11,10 +11,6 @@
         select <include refid="userDefault"></include> from user u where u.status in (1,2)
     </select>
 
-    <select id="selectByPage" resultType="user">
-        select <include refid="userDefault"></include> from user u where u.status in (1,2) limit #{start},#{pageSize}
-    </select>
-
     <select id="selectOne" resultType="user">
         select <include refid="userDefault"></include> from user u where u.status in (1,2) and u.id=#{id}
     </select>
