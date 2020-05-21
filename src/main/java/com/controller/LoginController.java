@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class LoginController extends ServiceInterface {
         User user = new User();
         user.setLoginname(username);
         user.setPassword(pwd);
-        List<User> users = userService.selectByParam(user);
+        List<User> users = userService.selectByParam(user, 1, 1);
         if(0 != users.size()){
             model.addAttribute("userMessage", users.get(0));
         }
@@ -35,8 +36,8 @@ public class LoginController extends ServiceInterface {
     }
 
     @RequestMapping("loginInit")
-    public String loginInit(String id, Model model){
-        User user = (User) ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("userMessage");
+    public String loginInit(String id, Model model, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("userMessage");
         if(null == user || !id.equals(user.getId().toString())){
             return "notLogin";
         }

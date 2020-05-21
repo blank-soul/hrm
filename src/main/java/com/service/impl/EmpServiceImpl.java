@@ -27,7 +27,8 @@ public class EmpServiceImpl extends DaoInterface implements EmpService {
     }
 
     @Override
-    public List<Emp> selectByParam(Emp emp) {
+    public List<Emp> selectByParam(Emp emp, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return empDao.selectByParam(emp);
     }
 

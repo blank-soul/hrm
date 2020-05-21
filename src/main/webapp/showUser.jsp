@@ -8,12 +8,29 @@
 </head>
 <body>
 
+<div class="demoTable">
+    用户名：
+    <div class="layui-inline">
+        <input class="layui-input" name="username" id="selectByUsername" autocomplete="off">
+    </div>
+    用户状态：
+    <div class="layui-inline">
+        <select class="layui-input" name="status" id="selectByStatus" autocomplete="off">
+            <option value="">请选择</option>
+            <option value="1">超级管理员</option>
+            <option value="2">管理员</option>
+        </select>
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</div>
+
 <table id="tab" lay-filter="test"></table>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 <script src="/layui/layui.js"></script>
 <script>
     layui.use(['table', 'laypage'], function(){
@@ -22,7 +39,9 @@
 
         table.render({
             elem: '#tab'
+            ,id: 'testReload'
             ,url: '/user/selectAll' //数据接口
+            ,method: 'post'
             ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
                 layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
                 ,curr: 1    // 设定初始在第 1 页
@@ -56,6 +75,31 @@
             } else if(layEvent === 'edit'){
                 layer.msg('编辑操作');
             }
+        });
+
+        var $ = layui.$, active = {
+            reload: function(){
+                var selectByUsername = $('#selectByUsername');
+                var selectByStatus = $('#selectByStatus');
+                //执行重载
+                table.reload('testReload', {
+                    url: '/user/selectByParam'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        key: {
+                            username: selectByUsername.val()
+                            ,status: selectByStatus.val()
+                        }
+                    }
+                });
+            }
+        };
+
+        $('.demoTable .layui-btn[data-type]').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
         });
     });
 </script>

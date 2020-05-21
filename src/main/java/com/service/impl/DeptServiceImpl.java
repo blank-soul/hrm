@@ -31,7 +31,8 @@ public class DeptServiceImpl extends DaoInterface implements DeptService {
     }
 
     @Override
-    public List<Dept> selectByParam(Dept dept) {
+    public List<Dept> selectByParam(Dept dept, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return deptDao.selectByParam(dept);
     }
 

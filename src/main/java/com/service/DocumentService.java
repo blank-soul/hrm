@@ -13,7 +13,7 @@ public interface DocumentService {
     List<Document> selectOne(int id);
 
     // 不定项查询
-    List<Document> selectByParam(Document document);
+    List<Document> selectByParam(Document document, int pageNum, int pageSize);
 
     // 新增
     int insert(Document document);

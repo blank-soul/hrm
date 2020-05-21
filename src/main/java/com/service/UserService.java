@@ -13,7 +13,7 @@ public interface UserService {
     List<User> selectOne(int id);
 
     // 不定项查询
-    List<User> selectByParam(User user);
+    List<User> selectByParam(User user, int pageNum, int pageSize);
 
     // 系统登录
     Boolean login(User user);

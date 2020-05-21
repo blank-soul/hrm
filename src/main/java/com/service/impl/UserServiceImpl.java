@@ -29,7 +29,8 @@ public class UserServiceImpl extends DaoInterface implements UserService {
     }
 
     @Override
-    public List<User> selectByParam(User user) {
+    public List<User> selectByParam(User user, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return userDao.selectByParam(user);
     }
 

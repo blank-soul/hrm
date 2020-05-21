@@ -26,7 +26,8 @@ public class DocumentServiceImpl extends DaoInterface implements DocumentService
     }
 
     @Override
-    public List<Document> selectByParam(Document document) {
+    public List<Document> selectByParam(Document document, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return documentDao.selectByParam(document);
     }
 

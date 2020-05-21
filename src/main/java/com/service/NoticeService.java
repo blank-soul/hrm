@@ -13,7 +13,7 @@ public interface NoticeService {
     List<Notice> selectOne(int id);
 
     // 不定项查询
-    List<Notice> selectByParam(Notice notice);
+    List<Notice> selectByParam(Notice notice, int pageNum, int pageSize);
 
     // 新增
     int insert(Notice notice);

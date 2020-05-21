@@ -31,7 +31,8 @@ public class JobServiceImpl extends DaoInterface implements JobService {
     }
 
     @Override
-    public List<Job> selectByParam(Job job) {
+    public List<Job> selectByParam(Job job, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return jobDao.selectByParam(job);
     }
 

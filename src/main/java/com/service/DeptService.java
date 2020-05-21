@@ -15,7 +15,7 @@ public interface DeptService {
     List<Dept> selectOne(int id);
 
     // 不定项查询
-    List<Dept> selectByParam(Dept dept);
+    List<Dept> selectByParam(Dept dept, int pageNum, int pageSize);
 
     // 新增
     int insert(Dept dept);

@@ -16,7 +16,7 @@ public interface JobService {
     List<Job> selectOne(int id);
 
     // 不定项查询
-    List<Job> selectByParam(Job job);
+    List<Job> selectByParam(Job job, int pageNum, int pageSize);
 
     // 新增
     int insert(Job job);

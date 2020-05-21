@@ -14,7 +14,7 @@ public interface EmpService {
     List<Emp> selectOne(int id);
 
     // 不定项查询
-    List<Emp> selectByParam(Emp emp);
+    List<Emp> selectByParam(Emp emp, int pageNum, int pageSize);
 
     // 新增
     int insert(Emp emp);

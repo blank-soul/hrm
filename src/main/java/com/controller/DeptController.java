@@ -7,6 +7,7 @@ import com.util.ServiceInterface;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -17,11 +18,21 @@ import java.util.Map;
 @Controller
 @RequestMapping("dept")
 public class DeptController extends ServiceInterface {
-    @RequestMapping("selectAll")
+    @RequestMapping(value = "selectAll", method = RequestMethod.POST)
     @ResponseBody
     public Map selectAll(@RequestParam(required = false, defaultValue = "1") Integer page,
                          @RequestParam(required = false, defaultValue = "5") Integer limit){
         PageInfo<Dept> pageInfo = new PageInfo<>(deptService.selectAll(page, limit));
+        return PageUtil.pack(pageInfo.getTotal(), pageInfo.getList());
+    }
+
+    @RequestMapping(value = "selectByParam", method = RequestMethod.POST)
+    @ResponseBody
+    public Map selectByParam(@RequestParam(required = false, defaultValue = "1") Integer page,
+                             @RequestParam(required = false, defaultValue = "5") Integer limit, HttpServletRequest request){
+        Dept dept = new Dept();
+        dept.setName(request.getParameter("key[name]"));
+        PageInfo<Dept> pageInfo = new PageInfo<>(deptService.selectByParam(dept, page, limit));
         return PageUtil.pack(pageInfo.getTotal(), pageInfo.getList());
     }
 }

@@ -28,7 +28,8 @@ public class NoticeServiceImpl extends DaoInterface implements NoticeService {
     }
 
     @Override
-    public List<Notice> selectByParam(Notice notice) {
+    public List<Notice> selectByParam(Notice notice, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return noticeDao.selectByParam(notice);
     }
 
