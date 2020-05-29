@@ -1,6 +1,5 @@
 package com.controller;
 
-import com.entity.Dept;
 import com.entity.Notice;
 import com.github.pagehelper.PageInfo;
 import com.util.PageUtil;
@@ -12,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -39,5 +40,23 @@ public class NoticeController extends ServiceInterface {
         notice.setContent(request.getParameter("key[content]"));
         PageInfo<Notice> pageInfo = new PageInfo<>(noticeService.selectByParam(notice, page, limit));
         return PageUtil.pack(pageInfo.getTotal(), pageInfo.getList());
+    }
+
+    @RequestMapping(value = "insert", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer insert(HttpServletRequest request){
+        Notice notice = new Notice();
+        notice.setTitle(request.getParameter("noticeTitle"));
+        notice.setContent(request.getParameter("noticeContent"));
+        notice.setCreateDate(request.getParameter("createDate"));
+        if(null == notice.getCreateDate() || "".equals(notice.getCreateDate())){
+            notice.setCreateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        }
+        String userId = request.getParameter("userId");
+        if(null != userId && !"".equals(userId)){
+            notice.setUserId(Integer.valueOf(userId));
+        }
+        Integer res = noticeService.insert(notice);
+        return res;
     }
 }

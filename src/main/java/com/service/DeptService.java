@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DeptService {
     // 查询所有部门信息
-    List<Dept> selectAll(int pageNum, int pageSize);
+    List<Dept> selectAll(int pageNum, int pageSize, boolean flag);
 
     // 查询所有部门下的所有员工信息
     List<Dept> selectDeptEmp();

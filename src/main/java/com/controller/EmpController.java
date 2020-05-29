@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -46,5 +48,32 @@ public class EmpController extends ServiceInterface {
         emp.setSex(request.getParameter("key[sex]"));
         PageInfo<Emp> pageInfo = new PageInfo<>(empService.selectByParam(emp, page, limit));
         return PageUtil.pack(pageInfo.getTotal(), pageInfo.getList());
+    }
+
+    @RequestMapping(value = "insert", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer insert(HttpServletRequest request){
+        Emp emp = new Emp();
+        emp.setName(request.getParameter("empName"));
+        emp.setCardId(request.getParameter("cardId"));
+        emp.setAddress(request.getParameter("address"));
+        emp.setPhone(request.getParameter("phone"));
+        emp.setEmail(request.getParameter("email"));
+        emp.setSex(request.getParameter("sex"));
+        emp.setEducation(request.getParameter("education"));
+        emp.setCreateDate(request.getParameter("createDate"));
+        if(null == emp.getCreateDate() || "".equals(emp.getCreateDate())){
+            emp.setCreateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        }
+        String deptId = request.getParameter("userId");
+        if(null != deptId && !"".equals(deptId)){
+            emp.setDeptId(Integer.valueOf(deptId));
+        }
+        String jobId = request.getParameter("userId");
+        if(null != jobId && !"".equals(jobId)){
+            emp.setJobId(Integer.valueOf(jobId));
+        }
+        Integer res = empService.insert(emp);
+        return res;
     }
 }

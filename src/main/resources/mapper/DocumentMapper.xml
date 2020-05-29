@@ -34,7 +34,7 @@
     </select>
     
     <insert id="insert">
-        insert into document(title,filename,remark,createDate,user_id) values(#{title},#{filename},#{remark},#{createDate},#{user_id})
+        insert into document(title,filename,remark,createDate,user_id) values(#{title},#{filename},#{remark},#{createDate},#{userId})
     </insert>
 
     <insert id="batchInsert">
@@ -59,8 +59,8 @@
             <if test="createDate != null and createDate != ''">
                 createDate=#{createDate},
             </if>
-            <if test="user_id != null and user_id != ''">
-                user_id=#{user_id},
+            <if test="userId != null and userId != ''">
+                user_id=#{userId},
             </if>
         </trim>
         where id=#{id}

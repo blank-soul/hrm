@@ -1,6 +1,5 @@
 package com.controller;
 
-import com.entity.Dept;
 import com.entity.Document;
 import com.github.pagehelper.PageInfo;
 import com.util.PageUtil;
@@ -12,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -38,5 +39,24 @@ public class DocumentController extends ServiceInterface {
         document.setTitle(request.getParameter("key[title]"));
         PageInfo<Document> pageInfo = new PageInfo<>(documentService.selectByParam(document, page, limit));
         return PageUtil.pack(pageInfo.getTotal(), pageInfo.getList());
+    }
+
+    @RequestMapping(value = "insert", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer insert(HttpServletRequest request){
+        Document document = new Document();
+        document.setTitle(request.getParameter("documentTitle"));
+        document.setFilename(request.getParameter("filename"));
+        document.setRemark(request.getParameter("documentRemark"));
+        document.setCreateDate(request.getParameter("createDate"));
+        if(null == document.getCreateDate() || "".equals(document.getCreateDate())){
+            document.setCreateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        }
+        String userId = request.getParameter("userId");
+        if(null != userId && !"".equals(userId)){
+            document.setUserId(Integer.valueOf(userId));
+        }
+        Integer res = documentService.insert(document);
+        return res;
     }
 }

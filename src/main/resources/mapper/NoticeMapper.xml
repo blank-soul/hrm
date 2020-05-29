@@ -37,7 +37,7 @@
     </select>
     
     <insert id="insert">
-        insert into notice(title,content,createDate,user_id) values(#{title},#{content},#{createDate},#{user_id})
+        insert into notice(title,content,createDate,user_id) values(#{title},#{content},#{createDate},#{userId})
     </insert>
 
     <update id="update">
@@ -51,9 +51,9 @@
             </if>
             <if test="createDate != null and createDate != ''">
                 createDate=#{createDate},
-            </if>
-            <if test="user_id != null and user_id != 0">
-                user_id=#{user_id},
+        </if>
+            <if test="userId != null and userId != 0">
+                user_id=#{userId},
             </if>
         </trim>
         where id=#{id}

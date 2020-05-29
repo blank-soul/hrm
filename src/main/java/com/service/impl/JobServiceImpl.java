@@ -15,8 +15,10 @@ import java.util.List;
 @Service
 public class JobServiceImpl extends DaoInterface implements JobService {
     @Override
-    public List<Job> selectAll(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<Job> selectAll(int pageNum, int pageSize, boolean flag) {
+        if(flag){
+            PageHelper.startPage(pageNum, pageSize);
+        }
         return jobDao.selectAll();
     }
 

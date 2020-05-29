@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface JobService {
     // 查询所有职位信息
-    List<Job> selectAll(int pageNum, int pageSize);
+    List<Job> selectAll(int pageNum, int pageSize, boolean flag);
 
     // 查询所有职位下的所有员工信息
     List<Job> selectJobEmp();

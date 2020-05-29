@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,8 +26,16 @@ public class JobController extends ServiceInterface {
     @ResponseBody
     public Map selectAll(@RequestParam(required = false, defaultValue = "1") Integer page,
                          @RequestParam(required = false, defaultValue = "5") Integer limit){
-        PageInfo<Job> pageInfo = new PageInfo<>(jobService.selectAll(page, limit));
+        PageInfo<Job> pageInfo = new PageInfo<>(jobService.selectAll(page, limit, true));
         return PageUtil.pack(pageInfo.getTotal(), pageInfo.getList());
+    }
+
+    @RequestMapping(value = "selectAllJob", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Job> selectAllJob(@RequestParam(required = false, defaultValue = "1") Integer page,
+                                    @RequestParam(required = false, defaultValue = "5") Integer limit){
+        List<Job> list = jobService.selectAll(page, limit, false);
+        return list;
     }
 
     @RequestMapping(value = "selectByParam", method = RequestMethod.POST)
@@ -37,5 +46,15 @@ public class JobController extends ServiceInterface {
         job.setName(request.getParameter("key[name]"));
         PageInfo<Job> pageInfo = new PageInfo<>(jobService.selectByParam(job, page, limit));
         return PageUtil.pack(pageInfo.getTotal(), pageInfo.getList());
+    }
+
+    @RequestMapping(value = "insert", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer insert(HttpServletRequest request){
+        Job job = new Job();
+        job.setName(request.getParameter("jobName"));
+        job.setRemark(request.getParameter("jobRemark"));
+        Integer res = jobService.insert(job);
+        return res;
     }
 }

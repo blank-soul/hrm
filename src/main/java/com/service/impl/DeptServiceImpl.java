@@ -15,8 +15,10 @@ import java.util.List;
 @Service
 public class DeptServiceImpl extends DaoInterface implements DeptService {
     @Override
-    public List<Dept> selectAll(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<Dept> selectAll(int pageNum, int pageSize, boolean flag) {
+        if(flag){
+            PageHelper.startPage(pageNum, pageSize);
+        }
         return deptDao.selectAll();
     }
 

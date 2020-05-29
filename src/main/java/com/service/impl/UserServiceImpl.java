@@ -18,8 +18,10 @@ import java.util.List;
 public class UserServiceImpl extends DaoInterface implements UserService {
 
     @Override
-    public List<User> selectAll(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<User> selectAll(int pageNum, int pageSize, boolean flag) {
+        if(flag){
+            PageHelper.startPage(pageNum, pageSize);
+        }
         return userDao.selectAll();
     }
 
