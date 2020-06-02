@@ -54,4 +54,23 @@ public class DeptController extends ServiceInterface {
         Integer res = deptService.insert(dept);
         return res;
     }
+
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer update(HttpServletRequest request){
+        Dept dept = new Dept();
+        dept.setId(Integer.valueOf(request.getParameter("deptId")));
+        dept.setName(request.getParameter("deptName"));
+        dept.setRemark(request.getParameter("deptRemark"));
+        Integer res = deptService.update(dept);
+        return res;
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer delete(HttpServletRequest request){
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        Integer res = deptService.delete(id);
+        return res;
+    }
 }

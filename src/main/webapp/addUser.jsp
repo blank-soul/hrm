@@ -49,19 +49,30 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 <script src="/layui/layui.js"></script>
 <script>
+    function getQueryVariable(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+
     layui.use(['form'], function(){
         var form = layui.form;
         var router = layui.router();
 
         //监听提交
         form.on('submit(formDemo)', function(data){
-            var userId = router.search.userId;
+            var userId = getQueryVariable("userId");
             var username = data.field.username;
             var loginname = data.field.loginname;
             var password = data.field.password;
             var createDate = data.field.createDate;
             var htm = "username="+username+"&loginname="+loginname+"&password="+password+"&createDate="+createDate;
-            if(undefined != userId){
+            if(undefined != userId && null != userId && '' != userId){
                 $.post("/user/update", htm+"&userId="+userId, function (res) {
                     if(0 != res && null != res){
                         alert("修改成功！")

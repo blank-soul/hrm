@@ -57,4 +57,23 @@ public class JobController extends ServiceInterface {
         Integer res = jobService.insert(job);
         return res;
     }
+
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer update(HttpServletRequest request){
+        Job job = new Job();
+        job.setId(Integer.valueOf(request.getParameter("jobId")));
+        job.setName(request.getParameter("jobName"));
+        job.setRemark(request.getParameter("jobRemark"));
+        Integer res = jobService.update(job);
+        return res;
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer delete(HttpServletRequest request){
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        Integer res = jobService.delete(id);
+        return res;
+    }
 }

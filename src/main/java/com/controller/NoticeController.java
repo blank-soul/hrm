@@ -59,4 +59,28 @@ public class NoticeController extends ServiceInterface {
         Integer res = noticeService.insert(notice);
         return res;
     }
+
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer update(HttpServletRequest request){
+        Notice notice = new Notice();
+        notice.setId(Integer.valueOf(request.getParameter("noticeId")));
+        notice.setTitle(request.getParameter("noticeTitle"));
+        notice.setContent(request.getParameter("noticeContent"));
+        notice.setCreateDate(request.getParameter("createDate"));
+        String userId = request.getParameter("userId");
+        if(null != userId && !"".equals(userId)){
+            notice.setUserId(Integer.valueOf(userId));
+        }
+        Integer res = noticeService.update(notice);
+        return res;
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer delete(HttpServletRequest request){
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        Integer res = noticeService.delete(id);
+        return res;
+    }
 }

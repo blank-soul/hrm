@@ -51,7 +51,7 @@
                 {field: 'id', title: 'ID', sort: true, fixed: 'left'}
                 ,{field: 'title', title: '标题'}
                 ,{field: 'content', title: '详情'}
-                ,{field: 'userId', title: '发布人'}
+                ,{field: 'username', title: '发布人'}
                 ,{field: 'createDate', title: '发布日期'}
                 ,{fixed: 'right', align:'center', toolbar: '#barDemo'}
             ]]
@@ -63,12 +63,18 @@
                 ,layEvent = obj.event; //获得 lay-event 对应的值
             if(layEvent === 'del'){
                 layer.confirm('真的删除行么', function(index){
-                    obj.del(); //删除对应行（tr）的DOM结构
-                    layer.close(index);
-                    //向服务端发送删除指令
+                    $.post("/notice/delete", "id="+data.id, function (res) {
+                        if(0 != res && null != res){
+                            layer.msg("删除成功！");
+                            obj.del(); //删除对应行（tr）的DOM结构
+                            layer.close(index);
+                        } else {
+                            layer.msg("删除失败！");
+                        }
+                    });
                 });
             } else if(layEvent === 'edit'){
-                layer.msg('编辑操作');
+                location.href = '/addNotice.jsp?noticeId='+data.id;
             }
         });
 

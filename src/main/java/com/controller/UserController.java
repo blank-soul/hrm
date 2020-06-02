@@ -67,4 +67,25 @@ public class UserController extends ServiceInterface {
         Integer res = userService.insert(user);
         return res;
     }
+
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer update(HttpServletRequest request){
+        User user = new User();
+        user.setId(Integer.valueOf(request.getParameter("userId")));
+        user.setUsername(request.getParameter("username"));
+        user.setLoginname(request.getParameter("loginname"));
+        user.setPassword(request.getParameter("password"));
+        user.setCreateDate(request.getParameter("createDate"));
+        Integer res = userService.update(user);
+        return res;
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer delete(HttpServletRequest request){
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        Integer res = userService.delete(id);
+        return res;
+    }
 }

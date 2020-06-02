@@ -97,13 +97,24 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 <script src="/layui/layui.js"></script>
 <script>
+    function getQueryVariable(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+
     layui.use(['form'], function(){
         var form = layui.form;
         var router = layui.router();
 
         //监听提交
         form.on('submit(formDemo)', function(data){
-            var empId = router.search.empId;
+            var empId = getQueryVariable("empId");
             var empName = data.field.empName;
             var cardId = data.field.cardId;
             var address = data.field.address;
@@ -115,7 +126,7 @@
             var deptId = data.field.deptId;
             var jobId = data.field.jobId;
             var htm = "empName="+empName+"&cardId="+cardId+"&address="+address+"&phone="+phone+"&email="+email+"&sex="+sex+"&education="+education+"&createDate="+createDate+"&deptId="+deptId+"&jobId="+jobId;
-            if(undefined != empId){
+            if(undefined != empId && null != empId && '' != empId){
                 $.post("/emp/update", htm+"&empId="+empId, function (res) {
                     if(0 != res && null != res){
                         alert("修改成功！")

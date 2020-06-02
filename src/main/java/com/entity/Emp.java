@@ -23,6 +23,8 @@ public class Emp implements Serializable {
     private String education;
     private String createDate;
     private Integer status;
-    private Dept dept;
-    private Job job;
+    private String deptName;
+    private String jobName;
+//    private Dept dept;
+//    private Job job;
 }

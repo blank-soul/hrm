@@ -9,11 +9,11 @@
     </sql>
 
     <resultMap id="documentMap" type="document" autoMapping="true">
-        <association property="user" javaType="user" autoMapping="true">
-            <id property="id" column="uid"></id>
-            <result property="status" column="ustatus"></result>
-            <result property="createDate" column="ucreateDate"></result>
-        </association>
+<!--        <association property="user" javaType="user" autoMapping="true">-->
+<!--            <id property="id" column="uid"></id>-->
+<!--            <result property="status" column="ustatus"></result>-->
+<!--            <result property="createDate" column="ucreateDate"></result>-->
+<!--        </association>-->
     </resultMap>
     
     <select id="selectAll" resultMap="documentMap">

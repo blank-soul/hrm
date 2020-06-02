@@ -59,4 +59,29 @@ public class DocumentController extends ServiceInterface {
         Integer res = documentService.insert(document);
         return res;
     }
+
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer update(HttpServletRequest request){
+        Document document = new Document();
+        document.setId(Integer.valueOf(request.getParameter("documentId")));
+        document.setTitle(request.getParameter("documentTitle"));
+        document.setFilename(request.getParameter("filename"));
+        document.setRemark(request.getParameter("documentRemark"));
+        document.setCreateDate(request.getParameter("createDate"));
+        String userId = request.getParameter("userId");
+        if(null != userId && !"".equals(userId)){
+            document.setUserId(Integer.valueOf(userId));
+        }
+        Integer res = documentService.update(document);
+        return res;
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer delete(HttpServletRequest request){
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        Integer res = documentService.delete(id);
+        return res;
+    }
 }

@@ -4,6 +4,7 @@ import com.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
     // 查询所有用户信息
@@ -27,5 +28,10 @@ public interface UserService {
     // 删除
     int delete(int id);
 
+    User queryByLoginname(String Loginname);
+
+    Set<String> queryRoleByLoginname(String Loginname);
+
+    Set<String> queryPresByLoginname(String Loginname);
 
 }

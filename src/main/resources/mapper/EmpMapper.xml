@@ -13,18 +13,20 @@
     </sql>
     
     <resultMap id="empMap" type="emp" autoMapping="true">
-        <association property="dept" javaType="dept">
-            <id property="id" column="did"></id>
-            <result property="name" column="dname"></result>
-            <result property="remark" column="dremark"></result>
-            <result property="status" column="dstatu"></result>
-        </association>
-        <association property="job" javaType="job">
-            <id property="id" column="jid"></id>
-            <result property="name" column="jname"></result>
-            <result property="remark" column="jremark"></result>
-            <result property="status" column="jstatus"></result>
-        </association>
+        <result property="deptName" column="dname"></result>
+        <result property="jobName" column="jname"></result>
+<!--        <association property="dept" javaType="dept">-->
+<!--            <id property="id" column="did"></id>-->
+<!--            <result property="name" column="dname"></result>-->
+<!--            <result property="remark" column="dremark"></result>-->
+<!--            <result property="status" column="dstatu"></result>-->
+<!--        </association>-->
+<!--        <association property="job" javaType="job">-->
+<!--            <id property="id" column="jid"></id>-->
+<!--            <result property="name" column="jname"></result>-->
+<!--            <result property="remark" column="jremark"></result>-->
+<!--            <result property="status" column="jstatus"></result>-->
+<!--        </association>-->
     </resultMap>
     
     <select id="selectAll" resultMap="empMap">

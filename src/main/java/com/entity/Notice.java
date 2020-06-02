@@ -15,5 +15,6 @@ public class Notice {
     private String createDate;
     private Integer userId;
     private Integer status;
-    private User user;
+    private String username;
+//    private User user;
 }

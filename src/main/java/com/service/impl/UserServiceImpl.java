@@ -9,6 +9,7 @@ import com.util.MyBatisUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Create by HP on 2020/5/13
@@ -58,4 +59,21 @@ public class UserServiceImpl extends DaoInterface implements UserService {
     public int delete(int id) {
         return userDao.delete(id);
     }
+
+    @Override
+    public User queryByLoginname(String Loginname) {
+        System.out.println(userDao);
+        return userDao.queryByLoginname(Loginname);
+    }
+
+    @Override
+    public Set<String> queryRoleByLoginname(String Loginname) {
+        return userDao.queryRoleByLoginname(Loginname);
+    }
+
+    @Override
+    public Set<String> queryPresByLoginname(String Loginname) {
+        return userDao.queryPresByLoginname(Loginname);
+    }
+
 }

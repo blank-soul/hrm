@@ -47,7 +47,8 @@ public class EmpController extends ServiceInterface {
         emp.setPhone(request.getParameter("key[phone]"));
         emp.setSex(request.getParameter("key[sex]"));
         PageInfo<Emp> pageInfo = new PageInfo<>(empService.selectByParam(emp, page, limit));
-        return PageUtil.pack(pageInfo.getTotal(), pageInfo.getList());
+        Map<String, Object> map = PageUtil.pack(pageInfo.getTotal(), pageInfo.getList());
+        return map;
     }
 
     @RequestMapping(value = "insert", method = RequestMethod.POST)
@@ -65,6 +66,31 @@ public class EmpController extends ServiceInterface {
         if(null == emp.getCreateDate() || "".equals(emp.getCreateDate())){
             emp.setCreateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         }
+        String deptId = request.getParameter("deptId");
+        if(null != deptId && !"".equals(deptId)){
+            emp.setDeptId(Integer.valueOf(deptId));
+        }
+        String jobId = request.getParameter("jobId");
+        if(null != jobId && !"".equals(jobId)){
+            emp.setJobId(Integer.valueOf(jobId));
+        }
+        Integer res = empService.insert(emp);
+        return res;
+    }
+
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer update(HttpServletRequest request){
+        Emp emp = new Emp();
+        emp.setId(Integer.valueOf(request.getParameter("empId")));
+        emp.setName(request.getParameter("empName"));
+        emp.setCardId(request.getParameter("cardId"));
+        emp.setAddress(request.getParameter("address"));
+        emp.setPhone(request.getParameter("phone"));
+        emp.setEmail(request.getParameter("email"));
+        emp.setSex(request.getParameter("sex"));
+        emp.setEducation(request.getParameter("education"));
+        emp.setCreateDate(request.getParameter("createDate"));
         String deptId = request.getParameter("userId");
         if(null != deptId && !"".equals(deptId)){
             emp.setDeptId(Integer.valueOf(deptId));
@@ -73,7 +99,15 @@ public class EmpController extends ServiceInterface {
         if(null != jobId && !"".equals(jobId)){
             emp.setJobId(Integer.valueOf(jobId));
         }
-        Integer res = empService.insert(emp);
+        Integer res = empService.update(emp);
+        return res;
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer delete(HttpServletRequest request){
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        Integer res = empService.delete(id);
         return res;
     }
 }
