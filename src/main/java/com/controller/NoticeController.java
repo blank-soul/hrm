@@ -68,10 +68,8 @@ public class NoticeController extends ServiceInterface {
         notice.setTitle(request.getParameter("noticeTitle"));
         notice.setContent(request.getParameter("noticeContent"));
         notice.setCreateDate(request.getParameter("createDate"));
-        String userId = request.getParameter("userId");
-        if(null != userId && !"".equals(userId)){
-            notice.setUserId(Integer.valueOf(userId));
-        }
+        User user = (User) SecurityUtils.getSubject().getSession().getAttribute("user");
+        notice.setUserId(user.getId());
         Integer res = noticeService.update(notice);
         return res;
     }

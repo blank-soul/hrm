@@ -1,7 +1,6 @@
 package com.controller;
 
 import com.entity.Menu;
-import com.entity.User;
 import com.util.ServiceInterface;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -10,7 +9,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,6 +46,6 @@ public class LoginController extends ServiceInterface {
     public String loginPres(HttpServletRequest request, Model model){
         List<Menu> list = menuService.selectAll();
         model.addAttribute("menus", list);
-        return "backIndex";
+        return "redirect:/backIndex.jsp";
     }
 }
