@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>layout 后台大布局 - Layui</title>
+    <title>人事管理系统</title>
     <link rel="stylesheet" href="layui/css/layui.css">
 </head>
 <body class="layui-layout-body">
@@ -19,7 +19,7 @@
         <ul class="layui-nav layui-layout-right">
             <b>欢迎</b>
             <li class="layui-nav-item">
-                <a href="javascript:;">
+                <a href="/index.jsp" target="center_body">
                     ${sessionScope.user.username}
                 </a>
             </li>

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>非法访问</title>
+    <title>无权限</title>
     <style>
         div{
             margin: 10px auto;
@@ -20,6 +20,6 @@
     </style>
 </head>
 <body>
-<div><h1>非法访问</h1></div>
+<div><h1>无权限</h1></div>
 </body>
 </html>
