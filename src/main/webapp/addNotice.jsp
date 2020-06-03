@@ -33,14 +33,6 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">发布人</label>
-        <div class="layui-input-block">
-            <select name="userId" id="userId">
-                <option value=""></option>
-            </select>
-        </div>
-    </div>
-    <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -94,17 +86,6 @@
                 });
             }
             return false;
-        });
-
-        $(function () {
-            $.post("/user/selectAllUser", function (res) {
-                for(var i = 0; i < res.length; i++){
-                    var post = res[i];
-                    var htm = "<option value="+post.id+">"+post.username+"</option>";
-                    $("#userId").append(htm);
-                    form.render('select');
-                }
-            });
         });
     });
 </script>

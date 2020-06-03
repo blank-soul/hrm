@@ -1,9 +1,11 @@
 package com.controller;
 
 import com.entity.Notice;
+import com.entity.User;
 import com.github.pagehelper.PageInfo;
 import com.util.PageUtil;
 import com.util.ServiceInterface;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,10 +54,8 @@ public class NoticeController extends ServiceInterface {
         if(null == notice.getCreateDate() || "".equals(notice.getCreateDate())){
             notice.setCreateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         }
-        String userId = request.getParameter("userId");
-        if(null != userId && !"".equals(userId)){
-            notice.setUserId(Integer.valueOf(userId));
-        }
+        User user = (User) SecurityUtils.getSubject().getSession().getAttribute("user");
+        notice.setUserId(user.getId());
         Integer res = noticeService.insert(notice);
         return res;
     }

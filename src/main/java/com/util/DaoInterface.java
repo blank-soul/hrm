@@ -27,11 +27,11 @@ public class DaoInterface {
     public JobDao jobDao;
 
     @Autowired
+    public MenuDao menuDao;
+
+    @Autowired
     public NoticeDao noticeDao;
 
     @Autowired
     public UserDao userDao;
-
-    @Autowired
-    public UserMenuDao userMenuDao;
 }

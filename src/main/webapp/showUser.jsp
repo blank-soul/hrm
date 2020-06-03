@@ -1,10 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>table模块快速使用</title>
     <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <style>
+        #roleModel{
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -26,16 +32,48 @@
 
 <table id="tab" lay-filter="test"></table>
 
+<div id="roleModel">
+    <form class="layui-form" action="#" method="post" style="margin: 10px 10px 0px 0px;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">文件标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="documentTitle" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">文件详情</label>
+            <div class="layui-input-block">
+                <textarea name="documentRemark" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <shiro:hasPermission name="role:update">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">权限</a>
+    </shiro:hasPermission>
+    <shiro:hasPermission name="user:update">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    </shiro:hasPermission>
+    <shiro:hasPermission name="user:delete">
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </shiro:hasPermission>
 </script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 <script src="/layui/layui.js"></script>
 <script>
-    layui.use(['table', 'laypage'], function(){
+    layui.use(['table', 'layer'], function(){
         var table = layui.table,
-            laypage = layui.laypage;
+            layer = layui.layer
+
+
+
 
         table.render({
             elem: '#tab'
@@ -66,7 +104,9 @@
         table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
                 ,layEvent = obj.event; //获得 lay-event 对应的值
-            if(layEvent === 'del'){
+            if(layEvent === 'detail'){
+                layerOpen();
+            } else if(layEvent === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     $.post("/user/delete", "id="+data.id, function (res) {
                         if(0 != res && null != res){
@@ -107,6 +147,20 @@
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
+        
+        function layerOpen() {
+            layer.open({
+                type:1,
+                title:'[角色配置]',
+                area:['700px','600px'],
+                btn:false,
+                // shade: false,
+                shadeClose: true,
+                maxmin:false,
+                content:$('#roleModel'),
+                zIndex:layer.zIndex,
+            });
+        }
     });
 </script>
 </body>

@@ -27,11 +27,11 @@ public class ServiceInterface {
     public JobService jobService;
 
     @Autowired
+    public MenuService menuService;
+
+    @Autowired
     public NoticeService noticeService;
 
     @Autowired
     public UserService userService;
-
-    @Autowired
-    public UserMenuService userMenuService;
 }

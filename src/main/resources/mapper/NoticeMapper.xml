@@ -5,7 +5,7 @@
     
     <sql id="defaultSelect">
         select n.id,n.title,n.content,n.createDate,n.user_id,n.status,u.id as uid,u.username,u.loginname,u.password,u.status as ustatus,u.createDate as ucreateDate from notice n
-        left join user u on n.user_id = u.id where n.status=1
+        left join user u on n.user_id = u.id where u.status in (1,2)
     </sql>
     
     <resultMap id="noticeMap" type="notice" autoMapping="true">

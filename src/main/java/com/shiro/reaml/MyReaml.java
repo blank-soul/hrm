@@ -1,11 +1,14 @@
 package com.shiro.reaml;
 
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
+import com.dao.UserDao;
+import com.entity.User;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 自定义Reaml
@@ -13,14 +16,26 @@ import org.apache.shiro.subject.PrincipalCollection;
  * 游魂
  */
 public class MyReaml extends AuthorizingRealm {
+    @Autowired
+    UserDao userDao;
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        simpleAuthorizationInfo.setRoles(userDao.queryRoleByLoginname(principalCollection.toString()));
+        simpleAuthorizationInfo.setStringPermissions(userDao.queryPresByLoginname(principalCollection.toString()));
+        return simpleAuthorizationInfo;
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-
-        return null;
+        String loginname = authenticationToken.getPrincipal().toString();
+        User user = userDao.queryByLoginname(loginname);
+        if(null == user){
+            throw new UnknownAccountException("用户名不存在！");
+        } else{
+            SecurityUtils.getSubject().getSession().setAttribute("user", user);
+            return new SimpleAuthenticationInfo(loginname, user.getPassword(), this.getName());
+        }
     }
 }

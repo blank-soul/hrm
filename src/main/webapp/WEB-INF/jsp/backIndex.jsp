@@ -20,12 +20,8 @@
             <b>欢迎</b>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    ${sessionScope.userMessage.username}
+                    ${sessionScope.user.username}
                 </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
-                </dl>
             </li>
         </ul>
     </div>
@@ -38,7 +34,7 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">${perent.name}</a>
                     <dl class="layui-nav-child">
-                        <c:forEach items="${perent.child}" var="child">
+                        <c:forEach items="${perent.childs}" var="child">
                             <dd><a href="${child.location}" target="center_body">${child.name}</a></dd>
                         </c:forEach>
                     </dl>
@@ -50,12 +46,11 @@
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <iframe name="center_body" width="100%" height="95%" frameborder="0"></iframe>
+        <iframe name="center_body" width="100%" height="99%" frameborder="0" src="/index.jsp"></iframe>
     </div>
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
     </div>
 </div>
 <script src="layui/layui.js"></script>

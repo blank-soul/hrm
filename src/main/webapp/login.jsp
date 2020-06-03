@@ -37,22 +37,28 @@
                     </div>
                 </div>
                 <div class="row no-gutters justify-content-center">
-                    <form class="needs-validation" novalidate>
+                    <form class="needs-validation" novalidate action="/login" method="post">
                         <div class="form-row" style="">
                             <div class="col">
                                 <label><small>登录账号</small></label>
-                                <input id="username" type="text" class="form-control" placeholder="登录账号" required />
+                                <input id="username" name="username" type="text" class="form-control" placeholder="登录账号" required />
                             </div>
                         </div>
                         <div class="form-row mt-4">
                             <div class="col">
                                 <label><small>登录密码</small></label>
-                                <input id="pwd" type="password" class="form-control" placeholder="登录密码" required />
+                                <input id="password" name="password" type="password" class="form-control" placeholder="登录密码" required />
                             </div>
                         </div>
                         <div class="form-row mt-4">
                             <div class="col">
-                                <button id="submit" type="button" class="btn btn-primary w-100">登录</button>
+                                <label><small>记住我</small></label>
+                                <input type="checkbox" name="remember" title="记住我">
+                            </div>
+                        </div>
+                        <div class="form-row md-1">
+                            <div class="col">
+                                <button id="submit" type="submit" class="btn btn-primary w-100">登录</button>
                             </div>
                         </div>
                     </form>
@@ -71,24 +77,24 @@
     });
 </script>
 <script type="text/javascript">
-    $("#submit").click(function() {
-        var username = $("#username").val();
-        var pwd = $("#pwd").val();
-        if(username == "" || username == null || username == undefined){
-            alert("账号不可为空！");
-        } else if(pwd == "" || pwd == null || pwd == undefined){
-            alert("密码不可为空！");
-        } else{
-            $.post("loginResult", "username="+username+"&pwd="+pwd, function (res) {
-                if(0 != res.length){
-                    alert("登录成功！");
-                    location.href='/loginInit?id=' + res[0].id;
-                } else {
-                    alert("登录失败！");
-                }
-            });
-        }
-    });
+    // $("#submit").click(function() {
+    //     var username = $("#username").val();
+    //     var password = $("#password").val();
+    //     if(username == "" || username == null || username == undefined){
+    //         alert("账号不可为空！");
+    //     } else if(pwd == "" || pwd == null || pwd == undefined){
+    //         alert("密码不可为空！");
+    //     } else{
+    //         $.post("/login", "username="+username+"&password="+pwd, function (res) {
+    //             if("true" == res){
+    //                 alert("登录成功！");
+    //                 location.href='loginPres';
+    //             } else {
+    //                 alert("登录失败！");
+    //             }
+    //         });
+    //     }
+    // });
 </script>
 </body>
 </html>

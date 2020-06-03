@@ -5,7 +5,7 @@
     
     <sql id="defaultDocument">
         select d.id,d.title,d.filename,d.remark,d.createDate,d.user_id,d.status,u.id as uid,u.username,u.loginname,u.password,u.status as ustatus,u.createDate as ucreateDate from document d
-        left join user u on d.user_id = u.id where d.status=1
+        left join user u on d.user_id = u.id where u.status in (1,2)
     </sql>
 
     <resultMap id="documentMap" type="document" autoMapping="true">

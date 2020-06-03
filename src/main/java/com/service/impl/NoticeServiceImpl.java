@@ -1,11 +1,9 @@
 package com.service.impl;
 
 import com.entity.Notice;
-import com.dao.NoticeDao;
 import com.github.pagehelper.PageHelper;
 import com.service.NoticeService;
 import com.util.DaoInterface;
-import com.util.MyBatisUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

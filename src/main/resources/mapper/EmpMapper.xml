@@ -9,7 +9,7 @@
         j.id as jid,j.name as jname,j.remark as jremark,j.status as jstatus
         from emp e inner join dept d inner join job j
         on e.job_id = j.id and e.dept_id = d.id
-        where e.status=1
+        where d.status=1 and d.status=1
     </sql>
     
     <resultMap id="empMap" type="emp" autoMapping="true">

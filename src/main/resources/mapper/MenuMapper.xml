@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.MenuDao">
+
+    <resultMap id="menuMap" type="menu" autoMapping="true">
+        <collection property="childs" javaType="ArrayList" ofType="menu" autoMapping="true" select="selectChilds" column="id">
+        </collection>
+    </resultMap>
+    
+    <select id="selectAll" resultMap="menuMap">
+        select id,name,location,perentId from menu where perentId is null
+    </select>
+
+    <select id="selectChilds" resultType="menu">
+        select id,name,location,perentId from menu where perentId=#{id}
+    </select>
+
+</mapper>

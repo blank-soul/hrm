@@ -2,18 +2,35 @@ package com.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * 菜单/权限类
- * Create by HP on 2020/5/18
- * 游魂
+ * (Menu)实体类
+ *
+ * @author makejava
+ * @since 2020-06-02 11:14:14
  */
 @Data
-public class Menu {
+public class Menu implements Serializable {
+    private static final long serialVersionUID = -19338646958955793L;
+
     private Integer id;
+    /**
+    * 名称
+    */
     private String name;
+    /**
+    * url
+    */
     private String location;
-    private Integer perentId;
-    private List<Menu> child;
+    /**
+    * 父级id
+    */
+    private Integer perentid;
+    /**
+     * 子级菜单
+     */
+    private List<Menu> childs;
+
 }

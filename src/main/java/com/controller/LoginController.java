@@ -3,15 +3,19 @@ package com.controller;
 import com.entity.Menu;
 import com.entity.User;
 import com.util.ServiceInterface;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -20,30 +24,29 @@ import java.util.List;
  * 游魂
  */
 @Controller
-@SessionAttributes(value = {"menus", "userMessage"})
+@SessionAttributes(value = {"menus"})
 public class LoginController extends ServiceInterface {
-    @ResponseBody
-    @RequestMapping("loginResult")
-    public List<User> loginResult(String username, String pwd, Model model){
-        User user = new User();
-        user.setLoginname(username);
-        user.setPassword(pwd);
-        List<User> users = userService.selectByParam(user, 1, 1);
-        if(0 != users.size()){
-            model.addAttribute("userMessage", users.get(0));
+    @RequestMapping("/login")
+    public String login(String username, String password, String remember, HttpServletResponse response){
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        Subject subject = SecurityUtils.getSubject();
+        if(null != remember){
+            token.setRememberMe(true);
         }
-        return users;
+        try {
+            subject.login(token);
+            response.getWriter().print("<script>alert('登录成功！')</script>");
+            return "redirect:/loginPres";
+        } catch (AuthenticationException | IOException e){
+            e.printStackTrace();
+            System.out.println("登录失败！");
+            return "redirect:/login.jsp";
+        }
     }
 
-    @RequestMapping("loginInit")
-    public String loginInit(String id, Model model, HttpServletRequest request){
-        User user = (User) request.getSession().getAttribute("userMessage");
-        if(null == user || !id.equals(user.getId().toString())){
-            return "notLogin";
-        }
-        Menu menu = new Menu();
-        menu.setId(Integer.valueOf(id));
-        List<Menu> list = userMenuService.selectById(menu);
+    @RequestMapping("/loginPres")
+    public String loginPres(HttpServletRequest request, Model model){
+        List<Menu> list = menuService.selectAll();
         model.addAttribute("menus", list);
         return "backIndex";
     }
